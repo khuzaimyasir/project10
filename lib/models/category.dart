@@ -1,4 +1,6 @@
 
+import 'dart:convert';
+
 
 class Category {
   final int categoryId;
@@ -23,14 +25,15 @@ class Category {
         image = parsedJson['image'];
 }
 
-class Imagee {
+
+class image {
    String url;
 
 
-   Imagee({
+   image({
     required this.url,
   });
-Imagee.fromJson({required Map<String, dynamic> parsedJson})
+image.fromJson({required Map<String, dynamic> parsedJson})
  :url = parsedJson['url'];
 
 }

@@ -1,134 +1,133 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:project_10/models/api_service.dart';
 import 'package:project_10/models/category.dart';
+import 'package:project_10/utils/routes.dart';
 
 class WidgetCategories extends StatefulWidget {
-  const WidgetCategories({ Key? key }) : super(key: key);
+  const WidgetCategories({Key? key}) : super(key: key);
 
   @override
   _WidgetCategoriesState createState() => _WidgetCategoriesState();
 }
 
 class _WidgetCategoriesState extends State<WidgetCategories> {
- 
-     late APIservice apiService;
+  final TransformationController _controller = TransformationController();
+
+  String name = "";
+  bool changebutton = false;
+
+  final _formkey = GlobalKey<FormState>();
+
+  get onPressed => null;
+
+  movetohome(BuildContext context) async {
+    if (_formkey.currentState!.validate()) {
+      setState(() {
+        changebutton = true;
+      });
+      await Future.delayed(Duration(seconds: 1));
+      await Navigator.pushNamed(context, Myroutes.homeRoute);
+      setState(() {
+        changebutton = false;
+      });
+    }
+  }
+
+   late APIservice apiService;
 
   @override
   void initState() {
-     super.initState();
+    super.initState();
     apiService = new APIservice();
-   
   }
-
-
 
   @override
   Widget build(BuildContext context) {
-    return Container( 
-      color: Colors.white,
-      child: Column(
-      children: [
-        Row(
-          children: [
-            Padding(padding:EdgeInsets.only(left: 15 , top:10),
-            child: Text("all categories"),)
-            
-          ],
-        ),
-        _categoriesList()
-      ],
-   
-    ),
-      
-      
+    return Scaffold(
+      appBar: AppBar(),
+        backgroundColor: Colors.blueGrey.shade50,
+        body: SafeArea(
+            child: SingleChildScrollView(
+          child: Form(
+            key: _formkey,
+            child: Column(
+              children: [
+                InteractiveViewer(
+                  minScale: 0.3,
+                  maxScale: 10.0,
+                  transformationController: _controller,
+                  onInteractionEnd: (details) {
+                    _controller.value = Matrix4.identity();
+                  },
+                  boundaryMargin: EdgeInsets.all(5.0),
+                  child: Image.asset(
+                    "assets/4.jpeg",
+                    fit: BoxFit.cover,
+                    height: 250,
+                  ),
+                ),
+                _categoriesList()
+              ],
+            ),
+          ),
+        )));
+  }
+
+  Widget _categoriesList() {
+    return new FutureBuilder(
+      future: apiService.getCategories(),
+      builder: (
+        BuildContext context,
+        AsyncSnapshot<List<Category>> model,
+      ) {
+        if (model.hasData) {
+          return _buildCategoryList(model.data!);
+        }
+        return Center(
+          child: Text("not loading"),
+        );
+      },
     );
   }
-Widget _categoriesList(){
-return new FutureBuilder(
- future: apiService.getCategories(),
- builder:(
-   BuildContext context,
-   AsyncSnapshot<List<Category>> model,
- ) {
-   if(model.hasData){
-     return _buildCategoryList(model.data!);
-   }
-   return Center(child: CircularProgressIndicator(),
-   );
-   },
-);
- }
 }
 
+Widget _buildCategoryList(List<Category> categories) {
+  return Container(
+    height: 300,
+    alignment: Alignment.centerLeft,
+    child: ListView.builder(
+      // shrinkWrap: true,
+      // scrollDirection: Axis.horizontal,
+      // physics: ClampingScrollPhysics(),
+      itemCount: categories.length,
+      itemBuilder: (BuildContext context, int index) {
+        var data = categories[index];
 
-Widget _buildCategoryList(List<Category>categories){
-  return Column(
-    children: [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text("Picked for you", style: TextStyle(color: Colors.red, fontSize: 33, )),
-          TextButton(
-              onPressed: () {},
-              child: Text(
-                "view more",
-                style: TextStyle(color: Colors.red),
-              ))
-        ],
-      ),
-      SizedBox(
-          height: 200,
-          child: ListView.builder(
-            scrollDirection: Axis.vertical,
-            itemCount: categories.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Stack(
-                children: [
-                  Container(
-                    child: Card(
-                      elevation: 10,
-                       child: InkWell(
-                         onTap: (){},
-                         child: Container(
-                           height: 250.0,
-                           child : AspectRatio(aspectRatio: 1/1,
-                           child: Image.network("https://www.pakstyle.pk/img/products/l/p13686-embroidered-lawn-dress_1.jpg"
-                           ),)
-                         ),
-                       ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 15,
-                    left: 15,
-                    child: Chip(label :Text
-                  ('-50%',style: TextStyle(
-                    color: Colors.red
-                  ),
-                  )
-                  )
-                ),
-               Padding(
-                 padding: const EdgeInsets.all(8.0),
-                 child: SizedBox(
-                   height: 30,
-                   child: Text(
-                     'RS1500',
-                    style: TextStyle(
-                   decoration: TextDecoration.lineThrough
-                    ), )
-                     ,),
-               )
+        return Column(
+          children: [
+            Container(
+            margin:EdgeInsets.all(10),
+            height:80,
+            width:80,
+            alignment: Alignment.center,
+            child: Image.network(
+              data.image,
+            height:80,),
+             ) ,
 
-                ]
-              );
-            },
-          )),
-    ],
+             Row(children: [
+               Text(data.categoryName.toString())
+             ],)
+             ],
+            // leading: CircleAvatar(
+            //   child:
+            //       Image.network(categories.data[index]["images"][0]["src"]),
+            // ),
+            // title: Text(categories.data[index]["name"]),
+            // subtitle:
+            //     Text(),
+            );
+      },
+    ),
   );
 }
-
-
-

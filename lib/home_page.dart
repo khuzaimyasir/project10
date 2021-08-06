@@ -32,9 +32,9 @@ class _MyHomePageState extends State<MyHomePage> {
   Future _getProducts() async {
     // Initialize the API
     WooCommerceAPI wooCommerceAPI = WooCommerceAPI(
-        url: "https://officialguidance.com",
-        consumerKey: "ck_48cb95b7b48caab26b53c9211eb2dd4ac1f74534",
-        consumerSecret: "cs_aa2b16888cf01d202342c4b3c5f9594844a393ff");
+        url: "https://silkofactory.com",
+        consumerKey: "ck_57500cea4ecb9dea0df9e3d42d1394fb3430e23b",
+        consumerSecret: "cs_606727c70c6524bb45716aea67b25ebab3da1f2f");
 
     // Get data using the "products" endpoint
     var products = await wooCommerceAPI.getAsync("products");
@@ -88,7 +88,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: Text(
                         ("Buy now for \Rs " + snapshot.data[index]["price"]),
                         style:
-                            TextStyle(decoration: TextDecoration.lineThrough),
+                            TextStyle(
+                              color: Colors.green,
+                              decoration: TextDecoration.lineThrough),
+                            
                       ),
                     ),
                   )

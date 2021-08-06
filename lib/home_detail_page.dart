@@ -1,26 +1,25 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:project_10/utils/routes.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:woocommerce_api/woocommerce_api.dart';
-class HomeDetailPage extends StatelessWidget{
+
+class HomeDetailPage extends StatelessWidget {
   Future _getProducts() async {
     // Initialize the API
     WooCommerceAPI wooCommerceAPI = WooCommerceAPI(
-        url: "https://officialguidance.com",
-        consumerKey: "ck_48cb95b7b48caab26b53c9211eb2dd4ac1f74534",
-        consumerSecret: "cs_aa2b16888cf01d202342c4b3c5f9594844a393ff");
+      url: "https://silkofactory.com",
+      consumerKey: "ck_57500cea4ecb9dea0df9e3d42d1394fb3430e23b",
+      consumerSecret: "cs_606727c70c6524bb45716aea67b25ebab3da1f2f",
+    );
 
     // Get data using the "products" endpoint
     var products = await wooCommerceAPI.getAsync("products");
     return products;
   }
 
-
 // class HomeDetailPage  extends StatelessWidget {
 //   const HomeDetailPage({ Key? key }) : super(key: key);
-@override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -28,15 +27,15 @@ class HomeDetailPage extends StatelessWidget{
         title: Text("kys"),
       ),
       bottomNavigationBar: Container(
-        child:ButtonBar(
+        child: ButtonBar(
           alignment: MainAxisAlignment.spaceBetween,
-        //  buttonPadding: EdgeInsets.zero,
-          children: [ 
-             "rs".text.bold.xl4.red800.make(),
-        //  AddToCart(catalog: catalog,).wh(120, 50)
+          //  buttonPadding: EdgeInsets.zero,
+          children: [
+            "rs".text.bold.xl4.red800.make(),
+            //  AddToCart(catalog: catalog,).wh(120, 50)
           ],
-        ) ,).p32(),
-   
+        ),
+      ).p32(),
       body: FutureBuilder(
         future: _getProducts(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -45,12 +44,13 @@ class HomeDetailPage extends StatelessWidget{
             return ListView.builder(
               itemCount: snapshot.data.length,
               itemBuilder: (BuildContext context, int index) {
-                return SafeArea(child:
-                  Container(
+                return SafeArea(
+                  child: Container(
                     child: Card(
                       elevation: 10,
                       child: InkWell(
-                        onTap: ()=>Navigator.pushNamed(context, Myroutes.homeDetailsRoute),
+                        onTap: () => Navigator.pushNamed(
+                            context, Myroutes.homeDetailsRoute),
                         child: Container(
                             height: 200.0,
                             child: AspectRatio(
@@ -61,11 +61,7 @@ class HomeDetailPage extends StatelessWidget{
                       ),
                     ),
                   ),
-                 
-
-
                 );
-                
               },
             );
           }
