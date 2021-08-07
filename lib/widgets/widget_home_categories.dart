@@ -1,3 +1,5 @@
+// import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:project_10/models/api_service.dart';
 import 'package:project_10/models/category.dart';
@@ -44,7 +46,11 @@ class _WidgetCategoriesState extends State<WidgetCategories> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+     title: Text("Categories and offers") ,
+     backgroundColor: Colors.transparent,
+     shadowColor: Colors.yellow.shade800
+      ),
         backgroundColor: Colors.blueGrey.shade50,
         body: SafeArea(
             child: SingleChildScrollView(
@@ -84,7 +90,7 @@ class _WidgetCategoriesState extends State<WidgetCategories> {
           return _buildCategoryList(model.data!);
         }
         return Center(
-          child: Text("not loading"),
+          child: CircularProgressIndicator(),
         );
       },
     );
@@ -96,24 +102,31 @@ Widget _buildCategoryList(List<Category> categories) {
     height: 300,
     alignment: Alignment.centerLeft,
     child: ListView.builder(
-      // shrinkWrap: true,
-      // scrollDirection: Axis.horizontal,
-      // physics: ClampingScrollPhysics(),
+      shrinkWrap: true,
+      scrollDirection: Axis.horizontal,
+      physics: ClampingScrollPhysics(),
       itemCount: categories.length,
       itemBuilder: (BuildContext context, int index) {
         var data = categories[index];
 
         return Column(
           children: [
-            Container(
-            margin:EdgeInsets.all(10),
-            height:80,
-            width:80,
-            alignment: Alignment.center,
-            child: Image.network(
-              data.image,
-            height:80,),
-             ) ,
+            Card(
+              color: Colors.grey.shade300,
+              shape: CircleBorder(),
+              shadowColor: Colors.yellow.shade800,
+              elevation: 10,
+              child: Container(
+              margin:EdgeInsets.all(10),
+              height:80,
+              width:80,
+              alignment: Alignment.center,
+              child: Image.network(
+                data.image,
+             fit: BoxFit.contain,
+              height:70,),
+               ),
+            ) ,
 
              Row(children: [
                Text(data.categoryName.toString())

@@ -7,5 +7,8 @@ class Config {
   static const String consumerSecret =
       "cs_606727c70c6524bb45716aea67b25ebab3da1f2f";
   static const String categoriesURL = "products/categories";
+    static const String productaURL = "products/categories";
+      static const String todaysOffersTagId = "21";
+        static const String mostSellingProductsTagId = "23";
 
 }

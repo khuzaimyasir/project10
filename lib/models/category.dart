@@ -1,5 +1,5 @@
 
-import 'dart:convert';
+// import 'dart:convert';
 
 
 class Category {
@@ -26,6 +26,7 @@ class Category {
 }
 
 
+// ignore: camel_case_types
 class image {
    String url;
 
