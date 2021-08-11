@@ -1,89 +1,84 @@
-import 'package:flutter/foundation.dart';
-
 class Product {
-  final int id;
-  final String name;
-  final String description;
-  final String shortDescription;
-  final String sku;
-  final String price;
-  final String regularPrice;
-  final String salePrice;
-  final String stockStatus;
+  int id;
+  String name;
+  String description;
+  String shortDescription;
+  String sku;
+  String price;
+  String regularPrice;
+  String salePrice;
+  String stockStatus;
   List<Images> images;
-  List<categories> categories;
+  List<Categories> categories;
 
-  const Product({
-    required this.id,
-    required this.name,
-    required this.description,
-    required this.sku,
-    required this.price,
-    required this.salePrice,
-    required this.regularPrice,
-    required this.stockStatus,
+  Product(Type int, {
+    this.id,
+    this.name,
+    this.description,
+    this.shortDescription,
+    this.sku,
+    this.price,
+    this.salePrice,
+    this.regularPrice,
+    this.stockStatus,
   });
 
-  Product.fromJson(i, {required Map<String, dynamic> parsedJson})
-      : id = parsedJson['id'],
-        name = parsedJson['name'],
-        description = parsedJson['description'],
-        sku = parsedJson['parent'],
-        price = parsedJson['image'],
-        salePrice = parsedJson['image'];
+  Product.fromJson(Map<String, dynamic> parsedJson) {
+    id = parsedJson['id'];
+    name = parsedJson['name'];
+    description =parsedJson['description'];
+    sku = parsedJson['sku'];
+    price = parsedJson['price'];
+    salePrice = parsedJson['salePrice'];
+    regularPrice = parsedJson['regularPrice'];
 
-        if (json['categories']!) { 
-          categories= new List<categories>();
-          json['categories'].forEach((v){
-            categories.add(new categories.fromJson(v));
+    if (parsedJson['categories'] != null) {
 
-          }
-          );
-          if (json['images']!) { 
-          categories= new List<images>();
-          json['categories'].forEach((v){
-            categories.add(new images.fromJson(v));
+      categories = <Categories>[];
+      parsedJson['categories'].forEach((v) {
+        categories.add(new Categories.fromJson());
+      });
+    }
+    if (parsedJson['images'] != null) {
+    
+      images = <Images>[];
+      parsedJson['categories'].forEach((v) {
+        images.add(new Images.fromJson());
+      });
+    }
+  }
+}
 
-          }
-          );
-             }
-            }
-          }    
-
-// ignore: camel_case_types
-class categories {
+class Categories {
   int id;
   String name;
 
-  categories({
-    required this.id,
-        required this.name,
+  Categories({
+    this.id,
+    this.name,
   });
-  categories.fromJson({required Map<String, dynamic> parsedJson}){
-       id = parsedJson['id'],
-      //   : with id removed
-        name = parsedJson['name'];
+  Categories.fromJson({Map<String, dynamic> json}) {
+    id = json['id'];
+    //   : with id removed
+    name = json['name'];
+  }
 
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.id;
+    return data;
+  }
 }
- 
- Map<String, dynamic> toJson(){
-   final Map<String, dynamic> data = new Map<String, dynamic>();
-   data['id'] =  required this.id;
-     data['name'] = required this.id;
-     return data;
- }
- }
- 
- class Images{
+
+class Images {
   String src;
 
   Images({
-     required this.src,
-  })
- 
+    this.src,
+  });
 
-
-Images.fromJson({required Map<String, dynamic> parsedJson}){
-       src = parsedJson['src'];
+  Images.fromJson({Map<String, dynamic> json}) {
+    src = json['src'];
+  }
 }
- }

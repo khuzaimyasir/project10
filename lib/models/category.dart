@@ -10,14 +10,14 @@ class Category {
   final String image;
 
   const Category({
-    required this.categoryId,
-    required this.categoryName,
-    required this.categoryDesc,
-    required this.parent,
-    required this.image,
+     this.categoryId,
+    this.categoryName,
+     this.categoryDesc,
+     this.parent,
+     this.image,
   });
 
-  Category.fromJson(i, {required Map<String, dynamic> parsedJson})
+  Category.fromJson(i, {Map<String, dynamic> parsedJson})
       : categoryId = parsedJson['id'],
         categoryName = parsedJson['name'],
         categoryDesc = parsedJson['description'],
@@ -32,9 +32,9 @@ class image {
 
 
    image({
-    required this.url,
+    this.url,
   });
-image.fromJson({required Map<String, dynamic> parsedJson})
+image.fromJson({ Map<String, dynamic> parsedJson})
  :url = parsedJson['url'];
 
 }

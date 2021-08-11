@@ -93,7 +93,7 @@ class MyDrawer extends StatelessWidget {
             trailing: IconButton(
               icon: Icon(CupertinoIcons.right_chevron),
               onPressed: () {
-                Navigator.pushNamed(context, Myroutes.cartRoute);
+                Navigator.pushNamed(context, Myroutes.widgetHomeProducts);
               },
             ),
           ),

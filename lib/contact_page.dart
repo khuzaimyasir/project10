@@ -3,7 +3,7 @@ import 'package:project_10/widgets/drawer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class  ContactPage extends StatelessWidget {
-  ContactPage({Key? key}) : super(key: key);
+  ContactPage({key}) : super(key: key);
   // make class "name" extends imp
 
   @override

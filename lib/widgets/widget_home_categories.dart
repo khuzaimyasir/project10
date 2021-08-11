@@ -6,7 +6,7 @@ import 'package:project_10/models/category.dart';
 import 'package:project_10/utils/routes.dart';
 
 class WidgetCategories extends StatefulWidget {
-  const WidgetCategories({Key? key}) : super(key: key);
+  const WidgetCategories({Key key}) : super(key: key);
 
   @override
   _WidgetCategoriesState createState() => _WidgetCategoriesState();
@@ -23,7 +23,7 @@ class _WidgetCategoriesState extends State<WidgetCategories> {
   get onPressed => null;
 
   movetohome(BuildContext context) async {
-    if (_formkey.currentState!.validate()) {
+    if (_formkey.currentState.validate()) {
       setState(() {
         changebutton = true;
       });
@@ -35,7 +35,7 @@ class _WidgetCategoriesState extends State<WidgetCategories> {
     }
   }
 
-   late APIservice apiService;
+   APIservice apiService;
 
   @override
   void initState() {
@@ -87,7 +87,7 @@ class _WidgetCategoriesState extends State<WidgetCategories> {
         AsyncSnapshot<List<Category>> model,
       ) {
         if (model.hasData) {
-          return _buildCategoryList(model.data!);
+          return _buildCategoryList(model.data);
         }
         return Center(
           child: CircularProgressIndicator(),
