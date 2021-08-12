@@ -78,46 +78,44 @@ class APIservice {
       );
 
       if (response.statusCode == 200) {
-        print("Success");
-        print(response.data[0].runtimeType);
-        print(response.data);
+        // print("Succes");
+        // print(response.data[0].runtimeType);
+        // print(response.data);
 
-        for (int i = 0; i < response.data.length; i++) {
-          int id = response.data[i]["id"] ?? 0;
-          print(id);
-          String name = response.data[i]["name"] ?? "nnaamee";
-          print(name);
-          String description = response.data[i]["description"] ?? "descdesc";
-          print(description);
-          int sku = response.data[i]["skuu"] ?? 0;
-          print(sku);
-          String image = response.data[i]["image"]["src"] ?? "iimmaaggee";
-          print(image);
-          String regularPrice =
-              response.data[i]["regularp"]["src"] ?? "iimmaaggee";
-          print(regularPrice);
-          int salePrice = response.data[i]["salep"] ?? 0;
-          print(salePrice);
+        // for (int i = 0; i < response.data.length; i++) {
+        //   String tagId = response.data[i]["tagid"] ?? "nnd";
+        //   print(tagId);
+        //   int id = response.data[i]["id"] ?? 0;
+        //   print(id);
+        //   String name = response.data[i]["name"] ?? "nnaamee";
+        //   print(name);
+        //   String description = response.data[i]["description"] ?? "descdesc";
+        //   print(description);
+        //   int sku = response.data[i]["skuu"] ?? 0;
+        //   print(sku);
+        //   String image = response.data[i]["image"]["src"] ?? "iimmaaggee";
+        //   print(image);
+        //   String regularPrice =
+        //       response.data[i]["regularp"]["src"] ?? "iimmaaggee";
+        //   print(regularPrice);
+        //   int salePrice = response.data[i]["salep"] ?? 0;
+        //   print(salePrice);
 
-          data.add(new Product(
-            id: id,
-            name: name,
-            description: description,
-          ));
-        }
+        //   //   data.add(new Product(APIservice)
+        //   //      );
+        //     // }
+        //   }
+        data = (response.data as List)
+            .map(
+              (i) => new Product.fromJson(i),
+            )
+            .toList();
       }
-
-      //  data = (response.data as List )
-      //       .map(
-      //         (i) => Product.fromJson(i),
-      //       )
-      //       .toList();
-      //  }
-
     } on DioError catch (e) {
       print(e.response);
     }
     print("kys:");
     print(data);
     return data;
-  }}
+  }
+}
