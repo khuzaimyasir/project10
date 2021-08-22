@@ -18,8 +18,8 @@ class Product {
     this.shortDescription,
     this.sku,
     this.price,
-    this.salePrice,
     this.regularPrice,
+    this.salePrice,
     this.stockStatus,
   });
 

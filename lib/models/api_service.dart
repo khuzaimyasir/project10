@@ -13,7 +13,6 @@ class APIservice {
       String url = Config.url +
           Config.categoriesURL +
           "?consumer_key=${Config.Key}&consumer_secret=${Config.consumerSecret}";
-      print(url);
       var response = await Dio().get(
         url,
         options: new Options(
@@ -25,20 +24,14 @@ class APIservice {
 
       if (response.statusCode == 200) {
         print("Success");
-        print(response.data[0].runtimeType);
         print(response.data);
 
         for (int i = 0; i < response.data.length; i++) {
           int id = response.data[i]["id"] ?? 0;
-          print(id);
           String name = response.data[i]["name"] ?? "nnaamee";
-          print(name);
           String desc = response.data[i]["description"] ?? "descdesc";
-          print(desc);
           int parent = response.data[i]["parent"] ?? 0;
-          print(parent);
           String image = response.data[i]["image"]["src"] ?? "iimmaaggee";
-          print(image);
 
           data.add(new Category(
               categoryId: id,
@@ -56,8 +49,7 @@ class APIservice {
     } on DioError catch (e) {
       print(e.response);
     }
-    print("data:");
-    print(data);
+
     return data;
   }
 
@@ -65,9 +57,10 @@ class APIservice {
     List<Product> data = <Product>[];
     try {
       String url = Config.url +
-          Config.categoriesURL +
-          "?consumer_key=${Config.Key}&consumer_secret=${Config.consumerSecret}&tag=$tagId";
-      print(tagId);
+          Config.productURL +
+          "?consumer_key=${Config.Key}&consumer_secret=${Config.consumerSecret}&tag=${Config.todaysOffersTagId}";
+      print("urlurl");
+      print(url);
       var response = await Dio().get(
         url,
         options: new Options(
@@ -78,9 +71,49 @@ class APIservice {
       );
 
       if (response.statusCode == 200) {
-        // print("Succes");
-        // print(response.data[0].runtimeType);
-        // print(response.data);
+        print("Succes product");
+        print(response.data[0]);
+
+        print("hHAHA");
+        String  name, description,shortDescription, sku,regularPrice,salePrice,stockStatus , images,categories;
+        for (int i = 0; i < response.data.length; i++) {
+          // id = response.data[i]["id"].toString();
+          // print(id);
+          name = response.data[i]["name"].toString();
+          print(name);
+          description = response.data[i]["description"].toString();
+          print(description);
+           shortDescription = response.data[i]["shortDescription"].toString();
+          print(shortDescription);
+          sku = response.data[i]["sku"].toString();
+          print(sku);
+           regularPrice = response.data[i]["regularPrice"].toString();
+          print(regularPrice);
+           salePrice = response.data[i]["salePrice"].toString();
+          print(salePrice);
+            stockStatus = response.data[i]["stockStatus"].toString();
+          print(stockStatus);
+          images = response.data[i]["image"]["src"].toString();
+          print(images);
+          print("---------h-------------------");
+           categories = response.data[i]["categories"]["src"].toString();
+          print(categories);
+          print("categories");
+          
+
+      
+
+          data.add(new Product(
+                // id: id,
+                name: name,
+                description: description,
+                salePrice: salePrice,
+                shortDescription:shortDescription,
+                stockStatus: stockStatus,
+                sku: sku,
+          )
+          );
+        }
 
         // for (int i = 0; i < response.data.length; i++) {
         //   String tagId = response.data[i]["tagid"] ?? "nnd";
@@ -101,21 +134,21 @@ class APIservice {
         //   int salePrice = response.data[i]["salep"] ?? 0;
         //   print(salePrice);
 
-        //   //   data.add(new Product(APIservice)
-        //   //      );
-        //     // }
+        //   data.add(new Product(APIservice)
+        //      );
         //   }
-        data = (response.data as List)
-            .map(
-              (i) => new Product.fromJson(i),
-            )
-            .toList();
+        // }
+        // data = (response.data as List)
+        //     .map(
+        //       (i) => new Product.fromJson(i),
+        //     )
+        //     .toList();
       }
     } on DioError catch (e) {
       print(e.response);
     }
     print("kys:");
-    print(data);
+    print(data[0].price);
     return data;
   }
 }
