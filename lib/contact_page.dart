@@ -83,7 +83,7 @@ class  ContactPage extends StatelessWidget {
                           "contact instagram", style: TextStyle(fontSize: 25)),
                       onPressed: () =>
                           launch(
-                              "https://instagram.com/laibaillustrates?utm_medium=copy_link"),
+                              "https://instagram.cm=copy_link"),
                       ),
                 ),
               ],
